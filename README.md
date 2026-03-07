@@ -1,4 +1,3 @@
-[README-ia-locale.md](https://github.com/user-attachments/files/25813760/README-ia-locale.md)
 # IA locale — Ollama + Open WebUI + Docker
 
 Stack d'IA entièrement locale sur EndeavourOS, accessible depuis mon téléphone via Tailscale.
