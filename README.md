@@ -39,11 +39,14 @@ avec une interface web propre et un accès distant.
 
 ### Ollama
 
-Installé nativement via pacman :
+Installé via AUR avec le support CUDA pour utiliser le GPU NVIDIA en priorité :
 
 ```bash
-sudo pacman -S ollama
+yay -S ollama-cuda
 ```
+
+> `ollama-cuda` permet à Ollama d'utiliser le GPU (NVIDIA CUDA) en priorité pour l'inférence.
+> Les modèles trop lourds pour la VRAM basculent automatiquement sur le CPU.
 
 Configuré pour écouter sur toutes les interfaces (nécessaire pour Docker et Tailscale) :
 
@@ -82,18 +85,18 @@ via l'IP Tailscale du PC (`100.x.y.z:8080`), sans exposer de port sur internet.
 
 ## Modèles installés
 
-| Modèle | Paramètres | Usage |
+| Modèle | Paramètres | Inférence |
 |---|---|---|
-| `llama3.2-vision:11b-instruct-q4_K_M` | 10.7B | Vision + texte (CPU, trop lourd pour le GPU) |
-| `minicpm-v:latest` | 7.6B | Vision multimodale |
-| `moondream:latest` | 1B | Vision légère, rapide |
-| `dolphin-llama3:8b` | 8B | Génération de texte |
-| `mistral:7b` | 7.2B | Génération de texte |
-| `llama3.2:3b` | 3.2B | Texte léger, tourne bien sur GPU |
-| `qwen2.5-coder:3b` | 3.1B | Assistance au code, tourne bien sur GPU |
+| `llama3.2-vision:11b-instruct-q4_K_M` | 10.7B | CPU (trop lourd pour le GPU) |
+| `minicpm-v:latest` | 7.6B | CPU |
+| `moondream:latest` | 1B | GPU ✅ |
+| `dolphin-llama3:8b` | 8B | CPU |
+| `mistral:7b` | 7.2B | CPU |
+| `llama3.2:3b` | 3.2B | GPU ✅ |
+| `qwen2.5-coder:3b` | 3.1B | GPU ✅ |
 
-> Avec 4 Go de VRAM, les modèles jusqu'à ~3-4B tournent bien sur le GPU.
-> Au-delà, l'inférence bascule sur le CPU — ça fonctionne mais c'est nettement plus lent.
+> Avec `ollama-cuda`, Ollama utilise le GPU (RTX 3050, 4 Go VRAM) en priorité.
+> Les modèles dont les poids dépassent la VRAM disponible basculent automatiquement sur le CPU.
 
 ---
 
