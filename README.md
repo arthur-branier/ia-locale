@@ -87,16 +87,16 @@ via l'IP Tailscale du PC (`100.x.y.z:8080`), sans exposer de port sur internet.
 
 | Modèle | Paramètres | Inférence |
 |---|---|---|
-| `llama3.2-vision:11b-instruct-q4_K_M` | 10.7B | CPU (trop lourd pour le GPU) |
-| `minicpm-v:latest` | 7.6B | CPU |
+| `llama3.2-vision:11b-instruct-q4_K_M` | 10.7B | GPU + CPU (trop lourd pour tenir en VRAM) |
+| `minicpm-v:latest` | 7.6B | GPU + CPU |
 | `moondream:latest` | 1B | GPU ✅ |
-| `dolphin-llama3:8b` | 8B | CPU |
-| `mistral:7b` | 7.2B | CPU |
+| `dolphin-llama3:8b` | 8B | GPU + CPU |
+| `mistral:7b` | 7.2B | GPU + CPU |
 | `llama3.2:3b` | 3.2B | GPU ✅ |
 | `qwen2.5-coder:3b` | 3.1B | GPU ✅ |
 
 > Avec `ollama-cuda`, Ollama utilise le GPU (RTX 3050, 4 Go VRAM) en priorité.
-> Les modèles dont les poids dépassent la VRAM disponible basculent automatiquement sur le CPU.
+> Les modèles dont les poids dépassent la VRAM disponible sont répartis automatiquement entre GPU et CPU.
 
 ---
 
