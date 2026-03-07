@@ -126,7 +126,7 @@ via l'IP Tailscale du PC (`100.x.y.z:8080`), sans exposer de port sur internet.
 |---|---|
 | Ollama | ✅ Fonctionnel |
 | Open WebUI | ✅ Fonctionnel |
-| Accès GPU (modèles ≤3-4B) | ✅ Fonctionnel |
+| Accès GPU (modèles ≤3-4B) | ✅ GPU uniquement |
 | Accès distant Tailscale | ✅ Fonctionnel |
 | Modèles vision | ✅ Fonctionnel |
-| Modèles >4B | ⚠️ CPU uniquement (lent) |
+| Modèles >4B | ✅ GPU + CPU (répartition automatique) |
