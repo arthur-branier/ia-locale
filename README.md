@@ -1,8 +1,7 @@
 # IA locale — Ollama + Open WebUI + Docker
 
-Stack d'IA entièrement locale sur EndeavourOS, accessible depuis mon téléphone via Tailscale.
-L'objectif était de faire tourner des modèles de langage en local, sans dépendre d'un service cloud,
-avec une interface web propre et un accès distant.
+Stack d'IA entièrement locale sur EndeavourOS (RTX 3050 Mobile, 4 Go VRAM), accessible depuis mon téléphone via Tailscale.
+L'objectif était de faire tourner des modèles de langage en local, sans dépendre d'un service cloud, avec une interface web propre et un accès distant. Plusieurs modèles testés, de 1B à 11B paramètres.
 
 ---
 
@@ -27,14 +26,6 @@ avec une interface web propre et un accès distant.
 
 ---
 
-## Matériel
-
-- **PC** : ASUS TUF Gaming A17 — EndeavourOS
-- **GPU** : NVIDIA RTX 3050 Mobile (4 Go VRAM)
-- **Accès distant** : Samsung Galaxy Z Fold 6 via Tailscale
-
----
-
 ## Installation
 
 ### Ollama
@@ -56,8 +47,6 @@ Configuré pour écouter sur toutes les interfaces (nécessaire pour Docker et T
 Environment="OLLAMA_HOST=0.0.0.0:11434"
 ```
 
-Démarrage du service :
-
 ```bash
 systemctl enable --now ollama
 ```
@@ -73,40 +62,12 @@ sudo docker run -d \
   ghcr.io/open-webui/open-webui:main
 ```
 
-Interface accessible sur `http://localhost:8080`.
-Connexion vers Ollama configurée sur `http://127.0.0.1:11434`.
+Interface accessible sur `http://localhost:8080`, connexion vers Ollama sur `http://127.0.0.1:11434`.
 
 ### Tailscale
 
 Installé sur le PC et le téléphone — permet d'accéder à Open WebUI depuis n'importe où
-via l'IP Tailscale du PC (`100.x.y.z:8080`), sans exposer de port sur internet.
-
----
-
-## Modèles installés
-
-| Modèle | Paramètres | Inférence |
-|---|---|---|
-| `llama3.2-vision:11b-instruct-q4_K_M` | 10.7B | GPU + CPU (trop lourd pour tenir en VRAM) |
-| `minicpm-v:latest` | 7.6B | GPU + CPU |
-| `moondream:latest` | 1B | GPU ✅ |
-| `dolphin-llama3:8b` | 8B | GPU + CPU |
-| `mistral:7b` | 7.2B | GPU + CPU |
-| `llama3.2:3b` | 3.2B | GPU ✅ |
-| `qwen2.5-coder:3b` | 3.1B | GPU ✅ |
-
-> Avec `ollama-cuda`, Ollama utilise le GPU (RTX 3050, 4 Go VRAM) en priorité.
-> Les modèles dont les poids dépassent la VRAM disponible sont répartis automatiquement entre GPU et CPU.
-
----
-
-## Accès
-
-| Point d'accès | URL |
-|---|---|
-| Local | `http://localhost:8080` |
-| Distant (Tailscale) | `http://100.x.y.z:8080` |
-| API Ollama | `http://localhost:11434` |
+via l'IP Tailscale du PC, sans exposer de port sur internet.
 
 ---
 
@@ -117,16 +78,3 @@ via l'IP Tailscale du PC (`100.x.y.z:8080`), sans exposer de port sur internet.
 - La contrainte VRAM : pourquoi la taille d'un modèle impacte directement les performances
 - Tailscale comme VPN mesh simple pour exposer un service local à distance sans ouvrir de ports
 - Les modèles multimodaux (vision) — différence entre un LLM texte et un modèle capable d'analyser des images
-
----
-
-## État actuel
-
-| Fonctionnalité | État |
-|---|---|
-| Ollama | ✅ Fonctionnel |
-| Open WebUI | ✅ Fonctionnel |
-| Accès GPU (modèles ≤3-4B) | ✅ GPU uniquement |
-| Accès distant Tailscale | ✅ Fonctionnel |
-| Modèles vision | ✅ Fonctionnel |
-| Modèles >4B | ✅ GPU + CPU (répartition automatique) |
